@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Live-скринер транзакций Solana по mint-адресу токена">
+  <title>Solana Live Screener</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <div><h1>Solana Live Screener</h1><p>Транзакции токена после запуска</p></div>
+    </div>
+    <div id="connectionBadge" class="badge badge-offline"><span></span> Остановлен</div>
+  </header>
+  <main>
+    <section class="panel settings-panel" aria-labelledby="settingsTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow">Подключение</p><h2 id="settingsTitle">Настройка скринера</h2></div>
+        <button id="settingsToggle" class="ghost-button" type="button" aria-expanded="true">Свернуть</button>
+      </div>
+      <div id="settingsBody">
+        <div class="form-grid">
+          <label class="field field-wide"><span>Mint токена</span><input id="tokenMint" type="text" spellcheck="false" autocomplete="off" placeholder="7V6Sk63y8Rr1MvcN5mYNp61wgFhy4EeQg5gUASk9pump"></label>
+          <label class="field field-wide"><span>Solana HTTP RPC — Helius или QuickNode</span><input id="rpcUrl" type="password" spellcheck="false" autocomplete="off" placeholder="https://…helius-rpc.com/?api-key=… или https://…quiknode.pro/…/"><small class="field-hint">Провайдер, ключ доступа и WebSocket-адрес определятся автоматически.</small></label>
+        </div>
+        <div class="settings-footer">
+          <div class="checks">
+            <label><input id="showEndpoints" type="checkbox"> Показать RPC-адрес</label>
+            <label><input id="rememberEndpoints" type="checkbox"> Запомнить на этом устройстве</label>
+          </div>
+          <div class="actions">
+            <button id="clearButton" class="secondary-button" type="button">Очистить таблицу</button>
+            <button id="stopButton" class="danger-button" type="button" disabled>Остановить</button>
+            <button id="startButton" class="primary-button" type="button">Запустить</button>
+          </div>
+        </div>
+      </div>
+      <div id="notice" class="notice" role="status" aria-live="polite"></div>
+    </section>
+    <section class="stats" aria-label="Статистика">
+      <article class="stat-card"><span>Пулы и адреса</span><strong id="poolCount">0</strong></article>
+      <article class="stat-card"><span>Подписки</span><strong id="subscriptionCount">0</strong></article>
+      <article class="stat-card"><span>Транзакции</span><strong id="transactionCount">0</strong></article>
+      <article class="stat-card"><span>Стартовый slot</span><strong id="startSlot">—</strong></article>
+    </section>
+    <section class="panel transactions-panel" aria-labelledby="transactionsTitle">
+      <div class="section-heading table-heading">
+        <div><p class="eyebrow">Live-поток</p><h2 id="transactionsTitle">Операции</h2></div>
+        <span id="queueStatus" class="queue-status">Очередь: 0 · обработка: 0</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Время</th><th>Статус</th><th>Операция</th><th>Токены</th><th>SOL сделки</th><th>SOL до</th><th>SOL после</th><th>Δ SOL</th><th>Комиссия</th><th>DEX</th><th>Пользователь</th><th>Slot</th><th>Подпись</th></tr></thead>
+          <tbody id="transactionRows"><tr id="emptyRow"><td colspan="13" class="empty-state">Новые транзакции появятся здесь после запуска.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <p class="privacy-note">RPC-ключ используется только этим браузером. WebSocket строится автоматически; сервер Vercel ключ не получает.</p>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
